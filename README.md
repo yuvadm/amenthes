@@ -10,7 +10,7 @@ Naturally, requires Arch.
 
 ```bash
 $ sudo su  # become root now, otherwise you get ugly permissions problems
-$ chmod -R root:root liveusb
+$ chown -R root:root liveusb
 $ cd liveusb
 $ ./build.sh -v
 ```
