@@ -2,8 +2,8 @@
 
 set -e -u
 
-iso_name=archlinux
-iso_label="ARCH_$(date +%Y%m)"
+iso_name=amenthes
+iso_label="AMENTHES_$(date +%Y%m)"
 iso_version=$(date +%Y.%m.%d)
 install_dir=arch
 arch=$(uname -m)

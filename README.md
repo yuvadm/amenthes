@@ -6,12 +6,12 @@ The project is based on the wonderful [archiso](https://wiki.archlinux.org/index
 
 ## Build
 
-Naturally, requires Arch. First, make sure you have `archiso` or `archiso-git` installed.
+Naturally, requires Arch.
 
 ```bash
-$ cd liveusb
 $ sudo su  # become root now, otherwise you get ugly permissions problems
-$ cp -r /usr/share/archiso/configs/baseline/* .
+$ chmod -R root:root liveusb
+$ cd liveusb
 $ ./build.sh -v
 ```
 
