@@ -1,1 +1,2 @@
-liveusb/{out,work}/
+liveusb/out/
+liveusb/work/
