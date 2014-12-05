@@ -15,4 +15,4 @@ $ cd liveusb
 $ ./build.sh -v
 ```
 
-You should now see `out/archlinux-YYYY.MM.DD-x86_64.iso`.
+You should now see `out/amenthes-YYYY.MM.DD-x86_64.iso`.
