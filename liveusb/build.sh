@@ -3,8 +3,7 @@
 set -e -u
 
 iso_name=amenthes
-iso_label="AMENTHES_$(date +%Y%m)"
-iso_version=$(date +%Y.%m.%d)
+iso_label="AMENTHES"
 install_dir=arch
 arch=$(uname -m)
 work_dir=work
@@ -89,7 +88,7 @@ make_prepare() {
 
 # Build ISO
 make_iso() {
-    mkarchiso -v -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${iso_version}-${arch}.iso"
+    mkarchiso -v -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${arch}.iso"
 }
 
 mkdir -p ${work_dir}
