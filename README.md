@@ -31,10 +31,16 @@ Amenthes enables a Linux user with basic command line knowledge to create a comp
 
 The target user then receives a ready-to-boot live USB which contains all the dropped files. Knowing the encryption passphrase, which can be delivered via a separate secure channel, the user now has full access to the files. The Amenthes live desktop contains all the neccesary programs to view common files of all types: documents, spreadsheets, audio and video files, etc.
 
-Additionally, the live desktop is hardened to prevent extraction of the files. The Amenthes environment blocks all network connections, does not recognize any hard disks or external storage devices.
+Most importantly, the live desktop is hardened to prevent extraction of the files from the system. The Amenthes environment blocks all network connections and does not recognize any hard disks or external storage devices. The only way to extract files from a running Amenthes system is via low-level hardware exploits, such as BIOS malware or proprietary chip firmware exploits. These attack vectors are a serious risk to any environment, and dealing with them is, naturally, out of the scope of this project.
 
 ### Threat Model
 
 Amenthes assumes the target recipient is a friendly entity which obliges with the leaker's requests to keep all files EYES ONLY and off the record. If the target is not trustworthy, and has knowledge of the passphrase used to encrypt the content of the drive, **it is possible** for an experienced system administrator to extract the contents of the drive to a separate location.
 
 If the physical device falls into the hands of an adversary, as long as the encryption passphrase is not revealed, the files can be considered as secure as the method used to encrypt them is against said adversary.
+
+## Hack
+
+ - **Code**: https://github.com/yuvadm/amenthes
+ - **Bugs**: https://github.com/yuvadm/amenthes/issues
+ - **IRC**: [#amenthes](https://webchat.freenode.net/?channels=amenthes) on freenode.net
