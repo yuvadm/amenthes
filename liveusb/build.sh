@@ -48,6 +48,13 @@ make_setup_mkinitcpio() {
     mkarchiso -v -w "${work_dir}" -D "${install_dir}" -r 'mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img' run
 }
 
+# Customize installation (airootfs)
+make_customize_airootfs() {
+    cp -af ${script_path}/airootfs ${work_dir}
+    mkarchiso -v -w "${work_dir}" -C "${pacman_conf}" -D "${install_dir}" -r '/root/customize_airootfs.sh' run
+    rm ${work_dir}/airootfs/root/customize_airootfs.sh
+}
+
 # Prepare ${install_dir}/boot/
 make_boot() {
     mkdir -p ${work_dir}/iso/${install_dir}/boot/${arch}
@@ -89,6 +96,7 @@ run_once make_pacman_conf
 run_once make_basefs
 run_once make_packages
 run_once make_setup_mkinitcpio
+run_once make_customize_airootfs
 run_once make_boot
 run_once make_syslinux
 run_once make_isolinux
