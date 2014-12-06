@@ -7,3 +7,6 @@ useradd -m -s /bin/bash amenthes
 # Setup the lxdm config
 echo "session=/usr/bin/startlxde" >> /etc/lxdm/lxdm.conf
 echo "autologin=amenthes" >> /etc/lxdm/lxdm.conf
+
+# Enable the lxdm service
+systemctl enable lxdm
