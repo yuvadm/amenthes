@@ -15,10 +15,10 @@ $ cd liveusb
 $ ./build.sh -v
 ```
 
-You should now see `out/amenthes-YYYY.MM.DD-x86_64.iso`, which can be directly copied to a USB drive:
+You should now see `out/amenthes-x86_64.iso`, which can be directly copied to a USB drive:
 
 ```bash
-$ dd bs=4M if=out/amenthes-YYYY.MM.DD-x86_64.iso of=/dev/sdX && sync
+$ dd bs=4M if=out/amenthes-x86_64.iso of=/dev/sdX && sync
 ```
 
 ## Design
