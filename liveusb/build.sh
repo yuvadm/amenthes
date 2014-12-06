@@ -5,6 +5,7 @@ set -e -u
 iso_name=amenthes
 iso_label="AMENTHES_$(date +%Y%m)"
 iso_version=$(date +%Y.%m.%d)
+iso_arch="x86_64"  # not dual, since i686 is not currently supported
 install_dir=arch
 work_dir=work
 out_dir=out
@@ -200,7 +201,7 @@ make_prepare() {
 
 # Build ISO
 make_iso() {
-    mkarchiso ${verbose} -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${iso_version}-dual.iso"
+    mkarchiso ${verbose} -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${iso_version}-${iso_arch}.iso"
 }
 
 if [[ ${EUID} -ne 0 ]]; then
@@ -234,15 +235,17 @@ mkdir -p ${work_dir}
 
 run_once make_pacman_conf
 
+archs=('x86_64')  # i686 not supported for now to minimize ISO size
+
 # Do all stuff for each airootfs
-for arch in i686 x86_64; do
+for arch in ${archs[@]}; do
     run_once make_basefs
     run_once make_packages
     run_once make_setup_mkinitcpio
     run_once make_customize_airootfs
 done
 
-for arch in i686 x86_64; do
+for arch in ${archs[@]}; do
     run_once make_boot
 done
 
@@ -253,7 +256,7 @@ run_once make_isolinux
 run_once make_efi
 run_once make_efiboot
 
-for arch in i686 x86_64; do
+for arch in ${archs[@]}; do
     run_once make_prepare
 done
 
