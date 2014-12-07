@@ -5,8 +5,9 @@ systemctl enable vboxservice
 useradd -m -s /bin/bash amenthes
 
 # Setup the lxdm config
-echo "session=/usr/bin/startlxde" >> /etc/lxdm/lxdm.conf
-echo "autologin=amenthes" >> /etc/lxdm/lxdm.conf
+sed -i 's/^# \(autologin=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment autlogin conf
+sed -i 's/dgod/amenthes/' /etc/lxdm/lxdm.conf  # replace autologin user
+sed -i 's/^# \(session=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment session conf
 
 # Enable the lxdm service
 systemctl enable lxdm
