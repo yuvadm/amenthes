@@ -4,15 +4,17 @@ Amenthes is an environment for creating a live Linux system which allows secure 
 
 The project is based on the wonderful [archiso](https://wiki.archlinux.org/index.php/Archiso) scripts.
 
-## Build
+## Prerequisites
 
-Naturally, requires Arch. First, make sure you have `archiso` or `archiso-git` installed.
+An existing `x86_64` [Arch Linux](https://www.archlinux.org/) system with `archiso` or `archiso-git` installed.
+
+## Build
 
 ```bash
 $ sudo su  # become root now, otherwise you get ugly permissions problems
 $ chown -R root:root liveusb
 $ cd liveusb
-$ ./build.sh -v
+$ ./build.sh
 ```
 
 You should now see `out/amenthes-x86_64.iso`, which can be directly copied to a USB drive:
@@ -20,6 +22,16 @@ You should now see `out/amenthes-x86_64.iso`, which can be directly copied to a 
 ```bash
 $ dd bs=4M if=out/amenthes-x86_64.iso of=/dev/sdX && sync
 ```
+
+### Testing
+
+For test builds targeting a VirtualBox VM, use the `-t` flag to add some required packages:
+
+```bash
+$ ./build.sh -t
+```
+
+Never target a VM for the real-life scenario, a VM client cannot be secured against a malicious VM host. Using this flag lets the end-user run under a VM, so just don't.
 
 ## Design
 
