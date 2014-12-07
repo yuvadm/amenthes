@@ -2,6 +2,7 @@
 
 set -e -u
 
+# global settings
 iso_name=amenthes
 iso_label="AMENTHES"
 install_dir=arch
@@ -9,8 +10,21 @@ arch=$(uname -m)
 work_dir=work
 out_dir=out
 
+# args
+testing=false
+
+# other paths
 pacman_conf=${work_dir}/pacman.conf
 script_path=$(readlink -f ${0%/*})
+
+_usage() {
+    echo "usage ${0} [options]"
+    echo
+    echo " General options:"
+    echo " -t Enable testing packages (use for development ONLY)"
+    echo " -h This help message"
+    exit ${1}
+}
 
 # Helper function to run make_*() only one time per architecture.
 run_once() {
@@ -34,7 +48,13 @@ make_basefs() {
 
 # Additional packages (airootfs)
 make_packages() {
-    mkarchiso -v -w "${work_dir}" -C "${pacman_conf}" -D "${install_dir}" -p "$(grep -h -v ^# ${script_path}/packages.x86_64)" install
+    local _packages
+    if [ "$testing" = true ]; then
+        _packages=$(grep -h -v ^# ${script_path}/packages{,-test}.x86_64)
+    else
+        _packages=$(grep -h -v ^# ${script_path}/packages.x86_64)
+    fi
+    mkarchiso -v -w "${work_dir}" -C "${pacman_conf}" -D "${install_dir}" -p "${_packages}" install
 }
 
 # Copy mkinitcpio archiso hooks and build initramfs (airootfs)
@@ -90,6 +110,26 @@ make_prepare() {
 make_iso() {
     mkarchiso -v -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${arch}.iso"
 }
+
+if [[ ${EUID} -ne 0 ]]; then
+    echo "This script must be run as root."
+    _usage 1
+fi
+if [[ ${arch} != x86_64 ]]; then
+    echo "This script needs to be run on x86_64"
+    _usage 1
+fi
+
+while getopts 'th' arg; do
+    case "${arg}" in
+        t) testing=true ;;
+        h) _usage 0 ;;
+        *)
+            echo "Invalid argument '${arg}'"
+            _usage 1
+            ;;
+    esac
+done
 
 mkdir -p ${work_dir}
 
