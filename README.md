@@ -6,7 +6,7 @@ The project is based on the wonderful [archiso](https://wiki.archlinux.org/index
 
 ## Prerequisites
 
-An existing `x86_64` [Arch Linux](https://www.archlinux.org/) system with `archiso` or `archiso-git` installed.
+An existing `x86_64` [Arch Linux](https://www.archlinux.org/) system with `archiso` or `archiso-git` installed. This is currently a hard requirement due to the nature of the `mkarchiso` script. Support for other Linuces and OSs is planned for future releases.
 
 ## Build
 
