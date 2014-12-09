@@ -119,6 +119,11 @@ if [[ ${arch} != x86_64 ]]; then
     echo "This script needs to be run on x86_64"
     _usage 1
 fi
+if [[ $(pacman -Q archiso) -ne 0 ]]; then
+    echo "This script requires archiso(-git) to be installed"
+    _usage 1
+fi
+
 
 while getopts 'th' arg; do
     case "${arg}" in
