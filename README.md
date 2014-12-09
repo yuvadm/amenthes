@@ -56,3 +56,7 @@ If the physical device falls into the hands of an adversary, as long as the encr
  - **Code**: https://github.com/yuvadm/amenthes
  - **Bugs**: https://github.com/yuvadm/amenthes/issues
  - **IRC**: [#amenthes](https://webchat.freenode.net/?channels=amenthes) on freenode.net
+
+## License
+
+GPLv2
