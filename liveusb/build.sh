@@ -67,6 +67,14 @@ make_setup_mkinitcpio() {
     mkarchiso -v -w "${work_dir}" -D "${install_dir}" -r 'mkinitcpio -c /etc/mkinitcpio-archiso.conf -k /boot/vmlinuz-linux -g /boot/archiso.img' run
 }
 
+# Prepare encrypted loop device
+make_encrypted_device() {
+    dd if=/dev/zero of=${work_dir}/airootfs/encrypted bs=1K count=$(du -d0 ${work_dir}/encrypt | grep -oe "[0-9]*")
+    local _loopdev=$(losetup -f)
+    losetup ${_loopdev} ${work_dir}/airootfs/encrypted
+    echo "passphrase" | cryptsetup luksFormat ${_loopdev} -
+}
+
 # Customize installation (airootfs)
 make_customize_airootfs() {
     cp -af ${script_path}/airootfs ${work_dir}
