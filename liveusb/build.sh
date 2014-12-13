@@ -73,6 +73,8 @@ make_encrypted_device() {
     local _loopdev=$(losetup -f)
     losetup ${_loopdev} ${work_dir}/airootfs/encrypted
     echo "passphrase" | cryptsetup luksFormat ${_loopdev} -
+    echo "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
+    mkfs.ext4 /dev/mapper/cryptloop
 }
 
 # Customize installation (airootfs)
