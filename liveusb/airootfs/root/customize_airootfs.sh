@@ -2,7 +2,7 @@
 systemctl enable vboxservice
 
 # Create the amenthes user
-useradd -m -s /bin/bash amenthes
+useradd -m -G wheel -s /bin/bash amenthes
 
 # Setup the lxdm config
 sed -i 's/^# \(autologin=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment autlogin conf
@@ -11,3 +11,6 @@ sed -i 's/^# \(session=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment session conf
 
 # Enable the lxdm service
 systemctl enable lxdm
+
+# Uncomment wheel group in sudoers
+sed -i 's/^# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers

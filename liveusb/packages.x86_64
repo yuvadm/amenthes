@@ -3,3 +3,4 @@ xf86-video-ati
 xf86-video-nouveau
 xorg-server
 lxde
+sudo
