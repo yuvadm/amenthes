@@ -111,6 +111,7 @@ make_iso() {
     mkarchiso -v -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${arch}.iso"
 }
 
+(pacman -Qq archiso > /dev/null) || (echo "This script requires archiso(-git) to be installed"; _usage 1)
 if [[ ${EUID} -ne 0 ]]; then
     echo "This script must be run as root."
     _usage 1
@@ -119,11 +120,6 @@ if [[ ${arch} != x86_64 ]]; then
     echo "This script needs to be run on x86_64"
     _usage 1
 fi
-if [[ $(pacman -Q archiso) -ne 0 ]]; then
-    echo "This script requires archiso(-git) to be installed"
-    _usage 1
-fi
-
 
 while getopts 'th' arg; do
     case "${arg}" in
