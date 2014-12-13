@@ -77,8 +77,8 @@ make_encrypted_device() {
     # Setup
     dd if=/dev/zero of=${work_dir}/airootfs/encrypted bs=1K count=${_cryptsize}
     losetup ${_loopdev} ${work_dir}/airootfs/encrypted
-    echo "passphrase" | cryptsetup luksFormat ${_loopdev} -
-    echo "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
+    echo -n "passphrase" | cryptsetup luksFormat ${_loopdev} -
+    echo -n "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
     mkfs.ext4 /dev/mapper/cryptloop
 
     # Mount and copy
