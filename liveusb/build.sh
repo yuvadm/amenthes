@@ -70,17 +70,27 @@ make_setup_mkinitcpio() {
 
 # Prepare encrypted loop device
 make_encrypted_device() {
-    dd if=/dev/zero of=${work_dir}/airootfs/encrypted bs=1K count=$(du -d0 ${work_dir}/encrypt | grep -oe "[0-9]*")
+    # Variables
+    local _cryptsize=$(expr $(du -d0 ${encrypt_dir} | grep -oe "[0-9]*") + 10000)  # add 10MB for crypt metadata
     local _loopdev=$(losetup -f)
+
+    # Setup
+    dd if=/dev/zero of=${work_dir}/airootfs/encrypted bs=1K count=${_cryptsize}
     losetup ${_loopdev} ${work_dir}/airootfs/encrypted
     echo "passphrase" | cryptsetup luksFormat ${_loopdev} -
     echo "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
     mkfs.ext4 /dev/mapper/cryptloop
+
+    # Mount and copy
     mkdir -p ${work_dir}/airootfs/mnt/decrypted
     mount /dev/mapper/cryptloop ${work_dir}/airootfs/mnt/decrypted
+    rmdir ${work_dir}/airootfs/mnt/decrypted/lost+found
     cp -a ${encrypt_dir}/* ${work_dir}/airootfs/mnt/decrypted
+
+    # Cleanup
     umount ${work_dir}/airootfs/mnt/decrypted
     cryptsetup close cryptloop
+    losetup -d ${_loopdev}
 }
 
 # Customize installation (airootfs)
@@ -154,6 +164,7 @@ run_once make_pacman_conf
 run_once make_basefs
 run_once make_packages
 run_once make_setup_mkinitcpio
+run_once make_encrypted_device
 run_once make_customize_airootfs
 run_once make_boot
 run_once make_syslinux
