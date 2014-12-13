@@ -8,6 +8,7 @@ iso_label="AMENTHES"
 install_dir=arch
 arch=$(uname -m)
 work_dir=work
+encrypt_dir=encrypt
 out_dir=out
 
 # args
@@ -75,6 +76,11 @@ make_encrypted_device() {
     echo "passphrase" | cryptsetup luksFormat ${_loopdev} -
     echo "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
     mkfs.ext4 /dev/mapper/cryptloop
+    mkdir -p ${work_dir}/airootfs/mnt/decrypted
+    mount /dev/mapper/cryptloop ${work_dir}/airootfs/mnt/decrypted
+    cp -a ${encrypt_dir}/* ${work_dir}/airootfs/mnt/decrypted
+    umount ${work_dir}/airootfs/mnt/decrypted
+    cryptsetup close cryptloop
 }
 
 # Customize installation (airootfs)
