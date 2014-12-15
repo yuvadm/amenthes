@@ -13,4 +13,4 @@ sed -i 's/^# \(session=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment session conf
 systemctl enable lxdm
 
 # Uncomment wheel group in sudoers
-sed -i 's/^# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers
+sed -i 's/^# \(%wheel ALL=(ALL) NOPASSWD: ALL\)/\1/' /etc/sudoers
