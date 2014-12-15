@@ -2,9 +2,11 @@
 systemctl enable vboxservice
 
 # Create the amenthes user, fix permissions on home dir and default terminal
-useradd -m -G wheel -s /bin/bash amenthes
+useradd -G wheel -s /bin/bash amenthes
 chown -R amenthes:amenthes /home/amenthes
-sed -i 's/\(terminal=\)/\1lxterminal/' /home/amenthes/.config/libfm/libfm.conf
+
+# Fix the libfm default terminal
+sed -i '2iterminal=lxterminal' /etc/xdg/libfm/libfm.conf
 
 # Setup the lxdm config
 sed -i 's/^# \(autologin=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment autlogin conf
