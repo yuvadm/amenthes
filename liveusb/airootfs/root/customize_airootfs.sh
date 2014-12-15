@@ -1,8 +1,9 @@
 # Enable the vbox service
 systemctl enable vboxservice
 
-# Create the amenthes user
+# Create the amenthes user and fix permissions on home dir
 useradd -m -G wheel -s /bin/bash amenthes
+chown -R amenthes:amenthes /home/amenthes
 
 # Setup the lxdm config
 sed -i 's/^# \(autologin=.*\)/\1/' /etc/lxdm/lxdm.conf  # uncomment autlogin conf
