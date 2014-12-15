@@ -11,15 +11,14 @@ echo '''
 
 
 
-Prepare to enter passphrase for encrypted content...
+Decrypting Amenthes payload...
 
 '''
-sudo su
 loopdev=$(losetup -f)
 
-losetup ${loopdev} /encrypted
-cryptsetup --type luks open ${loopdev} cryptloop
-mount /dev/mapper/cryptloop /mnt/decrypted
+sudo losetup ${loopdev} /encrypted
+sudo cryptsetup --type luks open ${loopdev} cryptloop
+sudo mount /dev/mapper/cryptloop /mnt/decrypted
 
 echo '''
 
@@ -32,6 +31,5 @@ sleep 2
 
 pcmanfm /mnt/decrypted &
 
-exit
 exit
 
