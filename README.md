@@ -14,6 +14,20 @@ An existing `x86_64` [Arch Linux](https://www.archlinux.org/) system with `archi
 
 Generated ISO currently supports `x86_64` targets only, with `i686` (32-bit) support planned for future releases. The desktop environment will run on most Intel, AMD/ATI and Nvidia video adapters.
 
+## Prepare
+
+Collect all the payload files under the `liveusb/encrypt` directory:
+
+```bash
+$ cp /path/to/payload/files/* liveusb/encrypt/
+```
+
+If your payload requires any special packages, add them now:
+
+```bash
+$ echo 'additional-package' >> packages.x86_64
+```
+
 ## Build
 
 ```bash
