@@ -3,5 +3,10 @@ xf86-video-ati
 xf86-video-nouveau
 xorg-server
 lxde
+ttf-dejavu
+ttf-freefont
 sudo
 xterm
+gpicview
+vlc
+leafpad
