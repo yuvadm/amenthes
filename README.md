@@ -1,6 +1,6 @@
 # Amenthes
 
-Amenthes is an environment for creating a live Linux system which allows secure EYES ONLY viewing of a batch of (leaked? :smirk:) files via a hardened desktop. See the [design](#design) section to understand exactly what the Amenthes live system provides.
+A fully customizable hardened Linux desktop, run from live USB, which enables secure EYES ONLY viewing of a batch of (leaked? :smirk:) encrypted files. A technically-competent user can use the Amenthes scripts to build a sneakernet deliverable to a trusted party. For more information read the [design](#design) section.
 
 The project is based on the wonderful [archiso](https://wiki.archlinux.org/index.php/Archiso) scripts.
 
