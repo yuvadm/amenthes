@@ -53,7 +53,7 @@ $ ./build.sh -t
 
 Never target a VM for the real-life scenario, a VM client cannot be secured against a malicious VM host. Using this flag lets the end-user run under a VM, so just don't.
 
-If you do not have an up-to-spec environment to build on, you can use the CI artifacts to get a testing ISO you can easily run on a VM for evaluation purposes on [http://ci.amenthes.y3xz.com:8090/job/amenthes/lastSuccessfulBuild/artifact/liveusb/out/amenthes-x86_64.iso](http://ci.amenthes.y3xz.com:8090/job/amenthes/lastSuccessfulBuild/artifact/liveusb/out/amenthes-x86_64.iso).
+If you do not have an up-to-spec environment to build on, you can use the CI artifacts to get a testing ISO you can easily run on a VM for evaluation purposes. The latest successfully built ISO [can be found here](http://ci.amenthes.y3xz.com:8090/job/amenthes/lastSuccessfulBuild/artifact/liveusb/out/amenthes-x86_64.iso).
 
 ## Design
 
