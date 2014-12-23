@@ -85,7 +85,7 @@ make_encrypted_device() {
     mkdir -p ${work_dir}/airootfs/mnt/decrypted
     mount /dev/mapper/cryptloop ${work_dir}/airootfs/mnt/decrypted
     rmdir ${work_dir}/airootfs/mnt/decrypted/lost+found
-    cp -a ${encrypt_dir}/* ${work_dir}/airootfs/mnt/decrypted
+    cp -a ${work_dir}/${encrypt_dir}/* ${work_dir}/airootfs/mnt/decrypted
 
     # Cleanup
     umount ${work_dir}/airootfs/mnt/decrypted
