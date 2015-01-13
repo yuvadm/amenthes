@@ -10,6 +10,7 @@ arch=$(uname -m)
 work_dir=work
 encrypt_dir=encrypt
 out_dir=out
+passphrase=$(cat /dev/urandom | tr -dc _A-Z-a-z-0-9_\?\! | head -c20)
 
 # args
 testing=false
@@ -77,8 +78,8 @@ make_encrypted_device() {
     # Setup
     dd if=/dev/zero of=${work_dir}/airootfs/encrypted bs=1K count=${_cryptsize}
     losetup ${_loopdev} ${work_dir}/airootfs/encrypted
-    echo -n "passphrase" | cryptsetup luksFormat ${_loopdev} -
-    echo -n "passphrase" | cryptsetup open ${_loopdev} cryptloop --key-file -
+    echo -n ${passphrase} | cryptsetup luksFormat ${_loopdev} -
+    echo -n ${passphrase} | cryptsetup open ${_loopdev} cryptloop --key-file -
     mkfs.ext4 /dev/mapper/cryptloop
 
     # Mount and copy
@@ -137,6 +138,11 @@ make_iso() {
     mkarchiso -v -w "${work_dir}" -D "${install_dir}" -L "${iso_label}" -o "${out_dir}" iso "${iso_name}-${arch}.iso"
 }
 
+# Output generated passphrase
+output_passphrase() {
+    echo "[amenthes] INFO: Password for encrypted container: ${passphrase}"
+}
+
 (pacman -Qq archiso > /dev/null) || (echo "This script requires archiso(-git) to be installed"; _usage 1)
 if [[ ${EUID} -ne 0 ]]; then
     echo "This script must be run as root."
@@ -171,3 +177,4 @@ run_once make_syslinux
 run_once make_isolinux
 run_once make_prepare
 run_once make_iso
+run_once output_passphrase
